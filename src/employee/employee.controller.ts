@@ -8,27 +8,53 @@ export class EmployeeController {
   constructor(private readonly employeeService: EmployeeService) {}
 
   @Post()
-  create(@Body() createEmployeeDto: CreateEmployeeDto) {
-    return this.employeeService.create(createEmployeeDto);
+  async create(@Body() createEmployeeDto: CreateEmployeeDto) {
+    const employee = await this.employeeService.create(createEmployeeDto);
+    console.log(employee)
+    return {
+      success:"true",
+      employee,
+      message: "employee created successfully"
+    }
   }
 
   @Get()
-  findAll() {
-    return this.employeeService.findAll();
+  async findAll() {
+    const employees = await this.employeeService.findAll();
+    return {
+      success:"true",
+      employees,
+      message: "employees fetched successfully"
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.employeeService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const employee = await this.employeeService.findOne(+id);
+    return {
+      success:"true",
+      employee,
+      message: "employee fetched successfully"
+    }
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
-    return this.employeeService.update(+id, updateEmployeeDto);
+  async update(@Param('id') id: string, @Body() updateEmployeeDto: UpdateEmployeeDto) {
+    const updatedEmployee = await this.employeeService.update(+id, updateEmployeeDto);
+    return {
+      success:"true",
+      updatedEmployee,
+      message: "employee updated successfully"
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.employeeService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const employee = await this.employeeService.remove(+id);
+    return {
+      success:"true",
+      message: "employee deleted successfully",
+      employee
+    }
   }
 }
