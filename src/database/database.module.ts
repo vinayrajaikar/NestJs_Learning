@@ -16,9 +16,11 @@ import { Employee } from "src/employee/entities/employee.entity";
                 password: configService.get('DB_PASSWORD'),
                 database: configService.get('DB_DATABASE'),
                 entities: [Employee],
-                synchronize: true
+                synchronize: false
             }),
             inject: [ConfigService]
+            // -------------------------------------------------
+
         })
     ]
 })

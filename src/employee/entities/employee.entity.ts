@@ -20,4 +20,7 @@ export class Employee {
     @Column()
     contactNumber: string
 
+    @Column({nullable:false})
+    usn: Number
+
 }

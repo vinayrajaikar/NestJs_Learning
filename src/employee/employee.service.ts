@@ -15,7 +15,11 @@ export class EmployeeService {
 
   //create employee
   async create(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
-    const {email,contactNumber} = createEmployeeDto;
+    const {email,contactNumber,name,role,gender} = createEmployeeDto;
+
+    if(!email || !contactNumber || !name || !role || !gender){
+      throw new BadRequestException("All fields are required ")
+    }
 
     const existingEmployee = await this.employeeRepository.findOne({
       where:[
@@ -23,8 +27,6 @@ export class EmployeeService {
         {contactNumber}
       ]
     })
-
-    console.log(existingEmployee)
 
     if(existingEmployee){
       throw new BadRequestException("employe already exists with email or contactNumber ")
